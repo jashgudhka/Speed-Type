@@ -74,10 +74,19 @@ quoteInputElement.addEventListener("input", () => {
   }
 });
 
+// This timer function will display a timer incrementing by 1 second
 function startTimer() {
+  // First it sets the initial value at zero
   timerElement.innerText = 0;
+
+  // This sets the initial time to begin with.
   startTime = new Date();
+
+  // We could use the set interval method itself to change the timer text on 1 second intervals but it was found that it can be inconsistent at times.
+  // So for precise 1 second intervals we take the initial time and substract it from the new Date() time which will return the current time. And we divide it by a 1000 for converting the time from milliseconds to seconds and display it on the innerText() of the timer element.
+  // With the help of setInterval() method this is done at 1 second intervals, but the resulting time is passed through the Math.floor() function to make sure the time is updated consistently after 1 second.
   setInterval(() => {
     timerElement.innerText = Math.floor((new Date() - startTime) / 1000);
   }, 1000);
+  // Try and remove the Math.floor() function and see the inconsistencies which could be a major flaw for longer period of time.
 }
