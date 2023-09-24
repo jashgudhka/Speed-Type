@@ -1,6 +1,8 @@
 const RANDOM_QUOTE_API_URL = "https://api.quotable.io/random";
 const quoteDisplayElement = document.getElementById("quoteDisplay");
 const quoteInputElement = document.getElementById("quoteInput");
+const timerElement = document.getElementById("timer");
+let startTime;
 
 // This function will generate and return a random quote from the API.
 function getRandomQuote() {
@@ -32,6 +34,7 @@ async function renderNewQuote() {
 
   // We set the value of the input element as null, because as a new quote is received we don't want it to contain the same old text. We want it to be empty to retype.
   quoteInputElement.value = null;
+  startTimer();
 }
 
 renderNewQuote();
@@ -70,3 +73,11 @@ quoteInputElement.addEventListener("input", () => {
     renderNewQuote();
   }
 });
+
+function startTimer() {
+  timerElement.innerText = 0;
+  startTime = new Date();
+  setInterval(() => {
+    timerElement.innerText = Math.floor((new Date() - startTime) / 1000);
+  }, 1000);
+}
